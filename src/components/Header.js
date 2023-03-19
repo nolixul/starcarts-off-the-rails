@@ -1,34 +1,44 @@
-import { useState } from "react";
-import { Center, Tabs } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { useState } from 'react'
+import { Center, Stack, Tabs } from '@mantine/core'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
-    const [activeTab, setActiveTab] = useState('films');
+	const [activeTab, setActiveTab] = useState('films')
 
-    return (
-        <Center h={75}>
-          <Tabs value={activeTab} onTabChange={setActiveTab} color="pink" radius="sm">
-            <Tabs.List>
-              <Link to="/">
-              <Tabs.Tab value="films">Films</Tabs.Tab>
-              </Link>
-              <Link to="/characters">
-              <Tabs.Tab value="characters">Characters</Tabs.Tab>
-              </Link>
-              <Link to="/starships">
-              <Tabs.Tab value="starships">Starships</Tabs.Tab>
-              </Link>
-            </Tabs.List>
+	return (
+		<Stack>
+			<h1>Star Cart 🚀</h1>
+			<Center>
+				<Tabs
+					value={activeTab}
+					onTabChange={setActiveTab}
+					color='pink'
+					radius='sm'
+				>
+					<Tabs.List>
+						<Link to='/' style={navLink}>
+							<Tabs.Tab value='films'>Films</Tabs.Tab>
+						</Link>
+						<Link to='/characters' style={navLink}>
+							<Tabs.Tab value='characters'>Characters</Tabs.Tab>
+						</Link>
+						<Link to='/starships' style={navLink}>
+							<Tabs.Tab value='starships'>Starships</Tabs.Tab>
+						</Link>
+					</Tabs.List>
 
-            <Tabs.Panel value="films">First panel</Tabs.Panel>
-            <Tabs.Panel value="characters">Second panel</Tabs.Panel>
-            <Tabs.Panel value="starships">Third panel</Tabs.Panel>
-          </Tabs>
-        </Center>
-      );
+					<Tabs.Panel value='films'>First panel</Tabs.Panel>
+					<Tabs.Panel value='characters'>Second panel</Tabs.Panel>
+					<Tabs.Panel value='starships'>Third panel</Tabs.Panel>
+				</Tabs>
+			</Center>
+		</Stack>
+	)
 }
 
 export default Header
 
-
+const navLink = {
+	textDecoration: 'none'
+}
 // make font bigger .. in theme?
