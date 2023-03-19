@@ -3,6 +3,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { getStarships } from '../services/swapApi'
 import StarshipDetails from './StarshipDetails'
+import Favourites from './Favourites'
+import useFavourites from '../hooks/useFavourites'
 
 const Starships = () => {
 	const [opened, { open, close }] = useDisclosure(false)
@@ -12,6 +14,8 @@ const Starships = () => {
     const [count, setCount] = useState(0)
     const [activePage, setActivePage] = useState(1)
     const [modalData, setModalData] = useState({})
+
+    const { handleAddFavourite } = useFavourites()
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -37,6 +41,7 @@ const Starships = () => {
 
 	return (
         <Flex direction='column' align='center' gap='md'>
+                 <Favourites />
 		<Grid>
 			{starships.map((starship) => {
 				return (
@@ -55,6 +60,10 @@ const Starships = () => {
 										}} color='pink'>
 									View details
 								</Button>
+                                <Button color='pink' onClick={() => {
+                                         console.log(typeof favourites, 'typeof favourites in onclick')
+                                    handleAddFavourite(starship.name)
+                                }}>Add to favourites</Button>
 							</Group>
 						</Card>
 					</Grid.Col>

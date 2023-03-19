@@ -5,6 +5,7 @@ const useFavourites = () => {
 	const { favourites, setFavourites } = useContext(FavouritesContext)
 
 	const handleAddFavourite = (toAdd: string) => {
+        // don't let user add favourite more than once
 		if (!favourites.includes(toAdd)) {
 			const updatedFavourites = [...favourites, toAdd]
 			setFavourites(updatedFavourites)

@@ -11,6 +11,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { getCharacters } from '../services/swapApi'
 import CharacterDetails from './CharacterDetails'
+import Favourites from './Favourites'
+import useFavourites from '../hooks/useFavourites'
 
 const Characters = () => {
 	const [opened, { open, close }] = useDisclosure(false)
@@ -20,6 +22,8 @@ const Characters = () => {
 	const [count, setCount] = useState(0)
 	const [activePage, setActivePage] = useState(1)
 	const [modalData, setModalData] = useState({})
+
+    const { handleAddFavourite } = useFavourites()
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -45,6 +49,7 @@ const Characters = () => {
 
 	return (
 		<Flex direction='column' align='center' gap='md'>
+                 <Favourites />
 			<Grid>
 				{characters.map((character) => {
 					return (
@@ -64,6 +69,10 @@ const Characters = () => {
 									>
 										View details
 									</Button>
+                                    <Button color='pink' onClick={() => {
+                                         console.log(typeof favourites, 'typeof favourites in onclick')
+                                    handleAddFavourite(character.name)
+                                }}>Add to favourites</Button>
 								</Group>
 							</Card>
 						</Grid.Col>
