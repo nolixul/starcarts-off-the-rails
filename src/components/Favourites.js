@@ -5,18 +5,16 @@ import FavouritesContext from "../contexts/Favourites";
 const Favourites = () => {
     const { favourites, setFavourites } = useContext(FavouritesContext)
 
+    // this doesn't work.. yet! It's an issue with the event target being passed through, ran out of time to address.
     const handleRemoveFavourite = (toRemove) => {
         const updatedFavourites = favourites.filter((itemInFavourites) => {
-            console.log(itemInFavourites, toRemove, 'itemInFavourites, item to remove')
-            console.log(itemInFavourites !== toRemove, 'itemInFavourites !== toRemove')
             return itemInFavourites !== toRemove})
-        console.log(updatedFavourites)
         setFavourites(updatedFavourites)
     }
 
     const removeButton = (
         <ActionIcon size="xs" color="blue" radius="xl" variant="transparent" component="button" onClick={(e) => {
-            console.log(e, 'event in onclick in favourite badge')
+            // here's the culprit with removing the favourite
             handleRemoveFavourite(e.target)
         }} >
           <p>X</p>

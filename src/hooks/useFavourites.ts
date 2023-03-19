@@ -1,16 +1,17 @@
-import { useContext } from "react"
-import FavouritesContext from "../contexts/Favourites"
+import { useContext } from 'react'
+import FavouritesContext from '../contexts/Favourites'
 
 const useFavourites = () => {
-    const { favourites, setFavourites } = useContext(FavouritesContext)
+	const { favourites, setFavourites } = useContext(FavouritesContext)
 
-    const handleAddFavourite = (toAdd: string) => {
-        const updatedFavourites = [...favourites, toAdd];
-        setFavourites(updatedFavourites)
-    }
+	const handleAddFavourite = (toAdd: string) => {
+		if (!favourites.includes(toAdd)) {
+			const updatedFavourites = [...favourites, toAdd]
+			setFavourites(updatedFavourites)
+		}
+	}
 
-    return { handleAddFavourite, favourites, setFavourites }
+	return { handleAddFavourite, favourites, setFavourites }
 }
-
 
 export default useFavourites
