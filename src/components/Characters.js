@@ -1,4 +1,14 @@
-import { Card, Grid, Group, Text, Modal, Button, List } from '@mantine/core'
+import {
+	Card,
+	Grid,
+	Group,
+	Text,
+	Modal,
+	Button,
+	List,
+	Pagination,
+	Flex
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { getCharacters } from '../services/swapApi'
@@ -8,12 +18,15 @@ const Characters = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 	const [characters, setCharacters] = useState([])
+    const [count, setCount] = useState(0)
+    const [activePage, setActivePage] = useState(1)
 
 	useEffect(() => {
 		setIsLoading(true)
 		getCharacters()
 			.then((response) => {
 				setCharacters(response.results)
+                setCount(response.count)
 				setIsLoading(false)
 			})
 			.catch(() => {
@@ -38,58 +51,68 @@ const Characters = () => {
 		return detail
 	}
 
-    if (isLoading) return <Text weight={500}>Loading...</Text>
+	if (isLoading) return <Text weight={500}>Loading...</Text>
 
-    if (isError) return <Text weight={500}>Oops! Something went wrong. Try reloading the page...</Text>
+	if (isError)
+		return (
+			<Text weight={500}>
+				Oops! Something went wrong. Try reloading the page...
+			</Text>
+		)
 
 	return (
-		<Grid>
-			{characters.map((details) => {
-				// gets array of keys for character API response
-				const characterDetails = Array.from(Object.keys(details))
-				return (
-					<Grid.Col span={4}>
-						<Card shadow='sm' padding='lg' radius='md' withBorder>
-							<Group position='apart' mt='md' mb='xs'>
-								<Text weight={500}>{details.name}</Text>
-							</Group>
-							{/* <Text size='sm' color='dimmed'>
-                            character details
-                        </Text>{' '} */}
-							<Modal opened={opened} onClose={close} withCloseButton={false}>
-								<List>
-									{characterDetails
-										.filter((detailKey) => details[detailKey].length > 0)
-										.filter(
-											(detailKey) =>
-												!fieldsToExclude.find(
-													(keyToExclude) => keyToExclude === detailKey
+		<Flex direction='column' align='center' gap='md'>
+			<Grid>
+				{characters.map((details) => {
+					// gets array of keys for character API response
+					const characterDetails = Array.from(Object.keys(details))
+					return (
+						<Grid.Col span={4}>
+							<Card shadow='sm' padding='lg' radius='md' withBorder>
+								<Group position='apart' mt='md' mb='xs'>
+									<Text weight={500}>{details.name}</Text>
+								</Group>
+								<Modal opened={opened} onClose={close} withCloseButton={false}>
+									<List style={listItems}>
+										{characterDetails
+											.filter((detailKey) => details[detailKey].length > 0)
+											.filter(
+												(detailKey) =>
+													!fieldsToExclude.find(
+														(keyToExclude) => keyToExclude === detailKey
+													)
+											)
+											.map((detailKey) => {
+												const detailName = cleanUpDetailName(detailKey)
+												const valueToRender = cleanValuesToRender(
+													details[detailKey]
 												)
-										)
-										.map((detailKey) => {
-											const detailName = cleanUpDetailName(detailKey)
-											const valueToRender = cleanValuesToRender(
-												details[detailKey]
-											)
-											return (
-												<List.Item>
-													{detailName}: {valueToRender}
-												</List.Item>
-											)
-										})}
-								</List>
-							</Modal>
-							<Group position='center'>
-								<Button onClick={open} color='pink'>
-									View details
-								</Button>
-							</Group>
-						</Card>
-					</Grid.Col>
-				)
-			})}
-		</Grid>
+												return (
+													<List.Item>
+														{detailName}: {valueToRender}
+													</List.Item>
+												)
+											})}
+									</List>
+								</Modal>
+								<Group position='center'>
+									<Button onClick={open} color='pink'>
+										View details
+									</Button>
+								</Group>
+							</Card>
+						</Grid.Col>
+					)
+				})}
+			</Grid>
+			<Pagination total={Math.ceil(count / 10)} color='pink' value={activePage} onChange={setActivePage} withEdges />
+		</Flex>
 	)
 }
 
 export default Characters
+
+const listItems = {
+	listStyleType: 'none',
+	padding: '5px'
+}
