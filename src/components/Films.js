@@ -1,13 +1,17 @@
-import { Card, Grid, Group, Text, Modal, Button, List } from '@mantine/core'
+import { Card, Grid, Group, Text, Modal, Button, List, Flex } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
+import useFavourites from '../hooks/useFavourites'
 import { getFilms } from '../services/swapApi'
+import Favourites from './Favourites'
 
 const Films = () => {
 	const [opened, { open, close }] = useDisclosure(false)
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
     const [films, setFilms] = useState([])
+
+    const { handleAddFavourite } = useFavourites()
     
     // fetch films once on render
     useEffect(() => {
@@ -25,6 +29,8 @@ const Films = () => {
     if (isError) return <Text weight={500}>Oops! Something went wrong. Try reloading the page...</Text>
 
 	return (
+        <Flex direction='column' align='center' gap='md'>
+        <Favourites />
 		<Grid>
 			{films.map((film) => {
 				return (
@@ -47,12 +53,16 @@ const Films = () => {
 								<Button onClick={open} color='pink'>
 									View details
 								</Button>
+                                <Button color='pink' onClick={() => {
+                                         console.log(typeof favourites, 'typeof favourites in onclick')
+                                    handleAddFavourite(film.title)
+                                }}>Add to favourites</Button>
 							</Group>
 						</Card>
 					</Grid.Col>
 				)
 			})}
-		</Grid>
+		</Grid></Flex>
 	)
 }
 
