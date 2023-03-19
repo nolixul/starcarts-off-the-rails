@@ -21,7 +21,7 @@ const CharacterDetails = ({ opened, close, character }) => {
 		return detail
 	}
 	return (
-		<Modal opened={opened} onClose={close} withCloseButton={false}>
+		<Modal opened={opened} onClose={close} withCloseButton={false} id={character.name}>
 			<List style={listItems}>
 				{characterDetails
 					.filter((detailKey) => character[detailKey].length > 0)
@@ -54,4 +54,4 @@ const listItems = {
 
 
 // TODO: come back and figure out why this modal gets rendered when the first page gets rendered and if you can prevent that
-// otherwise, put it back into the original page
+// otherwise, put it back into the original page - DOESN'T WORK AAHH

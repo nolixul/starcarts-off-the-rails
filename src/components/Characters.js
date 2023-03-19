@@ -17,15 +17,16 @@ const Characters = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [isError, setIsError] = useState(false)
 	const [characters, setCharacters] = useState([])
-    const [count, setCount] = useState(0)
-    const [activePage, setActivePage] = useState(1)
+	const [count, setCount] = useState(0)
+	const [activePage, setActivePage] = useState(1)
+	const [modalData, setModalData] = useState({})
 
 	useEffect(() => {
 		setIsLoading(true)
 		getCharacters(activePage)
 			.then((response) => {
 				setCharacters(response.results)
-                setCount(response.count)
+				setCount(response.count)
 				setIsLoading(false)
 			})
 			.catch(() => {
@@ -49,12 +50,18 @@ const Characters = () => {
 					return (
 						<Grid.Col span={4}>
 							<Card shadow='sm' padding='lg' radius='md' withBorder>
-								<Group position='apart' mt='md' mb='xs'>
+								<Group position='center' mt='md' mb='xs'>
 									<Text weight={500}>{character.name}</Text>
 								</Group>
-                                <CharacterDetails opened={opened} close={close} character={character} />
+
 								<Group position='center'>
-									<Button onClick={open} color='pink'>
+									<Button
+										color='pink'
+										onClick={() => {
+											setModalData(character)
+											open()
+										}}
+									>
 										View details
 									</Button>
 								</Group>
@@ -63,7 +70,14 @@ const Characters = () => {
 					)
 				})}
 			</Grid>
-			<Pagination total={Math.ceil(count / 10)} color='pink' value={activePage} onChange={setActivePage} withEdges />
+			<CharacterDetails opened={opened} close={close} character={modalData} />
+			<Pagination
+				total={Math.ceil(count / 10)}
+				color='pink'
+				value={activePage}
+				onChange={setActivePage}
+				withEdges
+			/>
 		</Flex>
 	)
 }
