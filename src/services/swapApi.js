@@ -6,3 +6,8 @@ export const getFilms = async () => {
     const { data } = await swapApi.get('/films')
     return data
 }
+
+export const getCharacters = async () => {
+    const { data } = await swapApi.get('/people')
+    return data
+}

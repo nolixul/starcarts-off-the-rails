@@ -9,11 +9,10 @@ const Films = () => {
     const [isError, setIsError] = useState(false)
     const [films, setFilms] = useState([])
     
-    // run once on render
+    // fetch films once on render
     useEffect(() => {
         setIsLoading(true)
         getFilms().then((response) => {
-            console.log(response, 'response')
             setFilms(response.results)
             setIsLoading(false)
         }).catch(() => {
