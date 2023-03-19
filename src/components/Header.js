@@ -41,4 +41,3 @@ export default Header
 const navLink = {
 	textDecoration: 'none'
 }
-// make font bigger .. in theme?

@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks'
 
 const Characters = () => {
     const [opened, { open, close }] = useDisclosure(false)
-    
+
     return (
 		<Grid>
 			<Grid.Col span={4}>
@@ -27,3 +27,4 @@ const Characters = () => {
 };
 
 export default Characters;
+
