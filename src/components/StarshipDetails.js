@@ -1,13 +1,13 @@
 import { List, Modal } from '@mantine/core'
 
-const CharacterDetails = ({ opened, close, character }) => {
-	// gets array of keys for character API response
-	const characterDetails = Array.from(Object.keys(character))
+const StarshipDetails = ({ opened, close, starship }) => {
+	// gets array of keys for starship API response
+	const starshipDetails = Array.from(Object.keys(starship))
 
-	// hard coded array of character meta data we don't want to show users
-	const fieldsToExclude = ['created', 'edited', 'url', 'homeworld']
+	// hard coded array of starship meta data we don't want to show users
+	const fieldsToExclude = ['created', 'edited', 'url']
 
-	// remove underscore and capitalise character detail keys to display in list
+	// remove underscore and capitalise starship detail keys to display in list
 	const cleanUpDetailName = (detailName) => {
 		let cleanedDetailName = detailName.replace('_', ' ')
 		return (
@@ -21,10 +21,10 @@ const CharacterDetails = ({ opened, close, character }) => {
 		return detail
 	}
 	return (
-		<Modal opened={opened} onClose={close} withCloseButton={false} id={character.name}>
+		<Modal opened={opened} onClose={close} withCloseButton={false} id={starship.name}>
 			<List style={listItems}>
-				{characterDetails
-					.filter((detailKey) => character[detailKey].length > 0)
+				{starshipDetails
+					.filter((detailKey) => starship[detailKey].length > 0)
 					.filter(
 						(detailKey) =>
 							!fieldsToExclude.find(
@@ -33,7 +33,7 @@ const CharacterDetails = ({ opened, close, character }) => {
 					)
 					.map((detailKey) => {
 						const detailName = cleanUpDetailName(detailKey)
-						const valueToRender = cleanValuesToRender(character[detailKey])
+						const valueToRender = cleanValuesToRender(starship[detailKey])
 						return (
 							<List.Item>
 								{detailName}: {valueToRender}
@@ -45,7 +45,7 @@ const CharacterDetails = ({ opened, close, character }) => {
 	)
 }
 
-export default CharacterDetails
+export default StarshipDetails
 
 const listItems = {
 	listStyleType: 'none',

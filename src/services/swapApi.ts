@@ -15,3 +15,12 @@ export const getCharacters = async (pageId: number): Promise<object> => {
     })
     return data
 }
+
+export const getStarships = async (pageId: number): Promise<object> => {
+    const { data } = await swapApi.get('/starships', {
+        params: {
+            page: pageId
+        }
+    })
+    return data
+}
