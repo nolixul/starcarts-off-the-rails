@@ -27,9 +27,9 @@ const Header = () => {
 						</Link>
 					</Tabs.List>
 
-					<Tabs.Panel value='films'>First panel</Tabs.Panel>
-					<Tabs.Panel value='characters'>Second panel</Tabs.Panel>
-					<Tabs.Panel value='starships'>Third panel</Tabs.Panel>
+					<Tabs.Panel value='films'></Tabs.Panel>
+					<Tabs.Panel value='characters'></Tabs.Panel>
+					<Tabs.Panel value='starships'></Tabs.Panel>
 				</Tabs>
 			</Center>
 		</Stack>
