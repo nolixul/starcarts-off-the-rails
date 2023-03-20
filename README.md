@@ -28,5 +28,10 @@ This project uses:
 - react-a11y, an accessibility linting library
 - TypeScript, a superset of JavaScript
 - react-router-dom, for navigation
-- prettier, a library that helps with formatting![Screenshot(30)](https://user-images.githubusercontent.com/79650939/226218943-a45e7cfe-c132-475b-b7ad-f160e873595f.png)
+- prettier, a library that helps with formatting!
+
+## Example screenshots
+[Screenshot(30)](https://user-images.githubusercontent.com/79650939/226218943-a45e7cfe-c132-475b-b7ad-f160e873595f.png)
+
+
 ![Screenshot(31)](https://user-images.githubusercontent.com/79650939/226218954-f1507646-9b19-4907-b385-bfcbe41cfa56.png)
